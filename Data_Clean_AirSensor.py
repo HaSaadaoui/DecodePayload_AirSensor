@@ -3,6 +3,10 @@ import subprocess
 import json
 from datetime import datetime
 import uuid  
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # take environment variables from .env.
 
 
 # Fonction pour décoder une trame brute
@@ -31,7 +35,7 @@ def decode_frame(raw_data):
         return None
 
 # Connexion à Cosmos DB
-CONNECTION_STRING = 'AccountEndpoint=https://cosmosdb-paris-chateaudun.documents.azure.com:443/;AccountKey=WQjxv3e4hNIOv2I91oLlTObR0PFVSSk3iB7goLJAMLwMEVCzgl98fmueRQEkwxBvqgmyBUmpXnfFACDbeUnUpg==;'
+CONNECTION_STRING = os.getenv('CLE_COSMOS')
 client = CosmosClient.from_connection_string(CONNECTION_STRING)
 database = client.get_database_client('SmartBuildingDB-Paris-Chateaudun')
 
