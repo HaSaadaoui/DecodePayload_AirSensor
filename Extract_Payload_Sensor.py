@@ -1,7 +1,11 @@
 from azure.cosmos import CosmosClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # take environment variables from .env.
 
 # Connexion Cosmos DB
-CONNECTION_STRING = 'AccountEndpoint=https://cosmosdb-paris-chateaudun.documents.azure.com:443/;AccountKey=WQjxv3e4hNIOv2I91oLlTObR0PFVSSk3iB7goLJAMLwMEVCzgl98fmueRQEkwxBvqgmyBUmpXnfFACDbeUnUpg==;'
+CONNECTION_STRING = os.getenv('CLE_COSMOS')
 client = CosmosClient.from_connection_string(CONNECTION_STRING)
 database = client.get_database_client('SmartBuildingDB-Paris-Chateaudun')
 container = database.get_container_client('SensorData')
