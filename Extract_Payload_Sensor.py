@@ -17,7 +17,7 @@ query = 'SELECT c.raw, c.ReceivedTimeStamp FROM c WHERE c.device = "Air_05-01" A
 items = list(container.query_items(query=query, enable_cross_partition_query=True))  
 
  # Affichage du nombre de trames trouvées
-print(f"Nombre de payloads trouvés : {len(items)}")
+#print(f"Nombre de payloads trouvés : {len(items)}")
 
 # Affichage des résultats
 for item in items:
