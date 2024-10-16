@@ -1,11 +1,16 @@
 from azure.cosmos import CosmosClient
+from dotenv import load_dotenv
+from datetime import datetime
 import subprocess
 import json
-from datetime import datetime
 import uuid  
+import os
+
+# Récupérer les variables d'environnement du fichier .env
+load_dotenv()  
 
 # Connexion à Cosmos DB
-CONNECTION_STRING = 'AccountEndpoint=https://cosmosdb-paris-chateaudun.documents.azure.com:443/;AccountKey=WQjxv3e4hNIOv2I91oLlTObR0PFVSSk3iB7goLJAMLwMEVCzgl98fmueRQEkwxBvqgmyBUmpXnfFACDbeUnUpg==;'
+CONNECTION_STRING = os.getenv('CLE_COSMOS')
 client = CosmosClient.from_connection_string(CONNECTION_STRING)
 database = client.get_database_client('SmartBuildingDB-Paris-Chateaudun')
 
