@@ -65,10 +65,9 @@ for item in items:
     if decoded_result:
         print("Résultat décodé avant modification des labels :")
         print(json.dumps(decoded_result, indent=4))
-   
+        # Suppression du champ batch_absolute_timestamp
         if 'batch_absolute_timestamp' in decoded_result:
                 del decoded_result['batch_absolute_timestamp']
-
         # Préparer une nouvelle liste pour les données nettoyées
         cleaned_dataset = []
         # Parcourir le dataset 
@@ -76,7 +75,7 @@ for item in items:
             # Suppression du champ data_relative_timestamp
             if 'data_relative_timestamp' in data_point:
                 del data_point['data_relative_timestamp']            
-            # Renommer les labels et ajuster les valeurs
+            # Renommer les labels et conversion des valeurs
             if data_point['data']['label_name'] == 'temperature':
                 data_point['data']['value'] = round(data_point['data']['value'] * 0.01, 1)
             elif data_point['data']['label_name'] == 'humidity':
@@ -86,21 +85,16 @@ for item in items:
             data_point['ReceivedTimeStamp'] = data_point.pop('data_absolute_timestamp', '')
             # Ajouter le data_point nettoyé à la nouvelle liste
             cleaned_dataset.append(data_point)
-
         # Mettre à jour le résultat décodé avec le dataset nettoyé
         decoded_result['dataset'] = cleaned_dataset
-
-        # Ajouter les colonnes 'id', 'Type', et 'ReceivedTimeStamp'
+        # Ajouter les colonnes 'device','deveui','atchReceivedTimeStamp','metadata', et 'id'
         decoded_result['device'] = "Air_05-01"
         decoded_result['deveui'] = "70B3D5E75E01C1FB"
         decoded_result['BatchReceivedTimeStamp'] = item.get('ReceivedTimeStamp', {})
         decoded_result['metadata'] = item.get('metadata', {})
         decoded_result['id'] = str(uuid.uuid4())  
-
-
         # Afficher le document avant l'insertion
         print(f"Document à insérer : {json.dumps(decoded_result, indent=4)}")
-
         # Insérer le document dans le conteneur de destination
         destination_container.upsert_item(decoded_result)
         print(f"Données insérées dans le conteneur 'DataCleanCosmos': {decoded_result}")
