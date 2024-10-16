@@ -7,12 +7,13 @@ Usage
 ------------ 
 ------------ 
 
-Testing Step1
+Decode Payload
 ------------ 
+This codec is used to decode data sent by Watteco sensors, in particular the VAQA'O air quality sensor.
+Decode_Payload_Sensor.py
 
-Python decode_sensor.py 
-
-Testing Step 2
+Data Processing 
 ------------ 
-Please insert the frame to be decoded : 404780800a5800000442ca8a4048fd395c817e21cb9a40028fd5379de3768b4f816e75a6e376006e2d800066
+VAQA'O air quality sensor : Data_Clean_AirSensor.py
+Milesight sound sensor : Data_Clean_SonSensor.py
 
