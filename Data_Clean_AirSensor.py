@@ -35,14 +35,14 @@ def decode_frame(raw_data, timestamp):
         "python",
         "C:/Users/Codec-Report-Batch-Python-main/br_uncompress.py",
         "-a",
-        "-t", timestamp,  # Utilisation de la variable timestamp ici
-        "3",              # Première partie de -a
-        "1,10,7,temperature",       # Deuxième partie de -a
-        "2,100,6,humidity",      # Troisième partie de -a
-        "3,10,6,CO2",     # Quatrième partie de -a
-        "4,10,6,COV",     # Cinquième partie de -a
+        "-t", timestamp,            # Utilisation de la variable timestamp ici
+        "3",                        # Première partie de -a
+        "1,10,7,temperature",       # Parametre tempertarue
+        "2,100,6,humidity",         # Parametre Humidity
+        "3,10,6,CO2",               # Parametre CO2
+        "4,10,6,COV",               # Parametre COV
         "-if",
-        raw_data          # Trame fournie par l'utilisateur
+        raw_data                    # Trame fournie par l'utilisateur
     ]
 
     try:
