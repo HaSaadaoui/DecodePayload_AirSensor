@@ -3,20 +3,22 @@ import subprocess
 import json
 
 # Fonction pour décoder une trame brute
-def decode_frame(raw_data):
+def decode_frame(raw_data, timestamp):
     # Définir les arguments de la commande
     command = [
         "python",
         "C:/Users/Codec-Report-Batch-Python-main/br_uncompress.py",
         "-a",
-        "3",           # Première partie de -a
-        "1,10,7,T",    # Deuxième partie de -a
-        "2,100,6,H",   # Troisième partie de -a
-        "3,10,6,CO2",  # Quatrième partie de -a
-        "4,10,6,COV",  # Cinquième partie de -a
+        "-t", timestamp,            # Utilisation de la variable timestamp ici
+        "3",                        
+        "1,10,7,temperature",       # Parametre tempertarue
+        "2,100,6,humidity",         # Parametre Humidity
+        "3,10,6,CO2",               # Parametre CO2
+        "4,10,6,COV",               # Parametre COV
         "-if",
-        raw_data       # Trame fournie par l'utilisateur
+        raw_data                    # Trame fournie par l'utilisateur
     ]
+
 
     try:
         # Exécuter la commande
@@ -29,11 +31,12 @@ def decode_frame(raw_data):
         return None
 
 if __name__ == "__main__":
-    # Demander à l'utilisateur de saisir la trame
+    # Demander à l'utilisateur de saisir la trame et le timestamp
     raw_data = input("Veuillez entrer la trame à décoder : ")
+    timestamp = input("Veuillez entrer le timestamp (ex : 2024-10-10T01:11:34.944Z) : ")
     
-    # Décoder la trame
-    decoded_result = decode_frame(raw_data)
+    # Décoder la trame avec le timestamp fourni
+    decoded_result = decode_frame(raw_data, timestamp)
     
     # Afficher le résultat décodé
     if decoded_result:
